@@ -46,6 +46,22 @@ do(In) ->
       (unless (or (eq part 1) (eq part 2))
         (error "Part must be either 1 or 2")))))
 
+(defun from-first-part (filepath)
+  "Create Erlang module content from Part 1 located at FILEPATH."
+  (replace-regexp-in-string
+   "-module(aoc_[[:digit:]]+_[[:digit:]]+_\\(1\\))[[:ascii:][:nonascii:]]*\\'"
+   "2"
+   (with-temp-buffer
+     (insert-file-contents filepath)
+     (buffer-string))
+   t
+   nil
+   1))
+
+(defun from-template (module)
+  "Create Erlang module MODULE content from template."
+  (replace-regexp-in-string "template" module aoc-template))
+
 (defun aoc-solve (year day part)
   "Load solution or create an Erlang solution module from template.  \
 YEAR and DAY are date of problem.  PART is either 1 or 2."
@@ -58,7 +74,11 @@ YEAR and DAY are date of problem.  PART is either 1 or 2."
     (mkdir dir t)
     (find-file filepath)
     (when (eq (buffer-size) 0)
-      (insert (replace-regexp-in-string "template" module aoc-template)))))
+      (let ((filepath1 (replace-regexp-in-string "2\\.erl" "1.erl" filepath))
+            (case-fold-search nil))
+        (if (and (eq part 2) (file-readable-p filepath1))
+            (insert (from-first-part filepath1))
+          (insert (from-template module)))))))
 
 (defun aoc-compile ()
   "Save and compile current solution."
