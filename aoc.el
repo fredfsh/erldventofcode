@@ -17,10 +17,14 @@
 -export([start/0]).
 
 start() ->
-    {ok, [In]} = io:fread(\"\", \"~s\"),
+    In = input(),
     Out = do(In),
     io:format(\"~p~n\", [Out]),
     ok.
+
+input() ->
+    {ok, [In]} = io:fread(\"\", \"~s\"),
+    In.
 
 do(In) ->
     In.")
