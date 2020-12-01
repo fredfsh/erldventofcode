@@ -31,7 +31,7 @@ do(In) ->
 
 (defun max-year ()
   "Calculate latest year of AoC competition."
-  (let* ((tail (cddddr (decode-time)))
+  (let* ((tail (cddddr (decode-time (current-time) "UTC-5")))
          (month (car tail))
          (year (cadr tail)))
     (if (eq month 12) year (1- year))))
