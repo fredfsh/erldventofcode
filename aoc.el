@@ -17,17 +17,31 @@
 -export([start/0]).
 
 start() ->
-    In = input(),
-    Out = do(In),
+    Out = run(),
     io:format(\"~p~n\", [Out]),
     ok.
 
-input() ->
-    {ok, [In]} = io:fread(\"\", \"~s\"),
-    In.
+run() ->
+    run_impl(0).
 
-do(In) ->
-    In.")
+run_impl(Acc) ->
+    case input() of
+        eof ->
+            Acc;
+        N ->
+            run_impl(Acc + do(N))
+    end.
+
+input() ->
+    case io:fread(\"\", \"~d\") of
+        eof ->
+            eof;
+        {ok, [N]} ->
+            N
+    end.
+
+do(N) ->
+    N.")
 
 (defun max-year ()
   "Calculate latest year of AoC competition."
