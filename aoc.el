@@ -28,20 +28,20 @@ run_impl(Acc) ->
     case input() of
         eof ->
             Acc;
-        N ->
-            run_impl(Acc + do(N))
+        X ->
+            run_impl(Acc + do(X))
     end.
 
 input() ->
     case io:fread(\"\", \"~d\") of
         eof ->
             eof;
-        {ok, [N]} ->
-            N
+        {ok, [X]} ->
+            X
     end.
 
-do(N) ->
-    N.")
+do(X) ->
+    X.")
 
 (defun max-year ()
   "Calculate latest year of AoC competition."
