@@ -29,7 +29,7 @@ run_impl(Acc) ->
         eof ->
             Acc;
         X ->
-            run_impl(Acc + do(X))
+            run_impl(acc(Acc, do(X)))
     end.
 
 input() ->
@@ -39,6 +39,9 @@ input() ->
         {ok, [X]} ->
             X
     end.
+
+acc(Acc, X) ->
+    Acc + X.
 
 do(X) ->
     X.")
