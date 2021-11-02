@@ -22,12 +22,12 @@ start() ->
     ok.
 
 run() ->
-    run_impl(0).
+    run_impl(ini()).
 
 run_impl(Acc) ->
     case input() of
         eof ->
-            Acc;
+            fin(Acc);
         X ->
             run_impl(acc(Acc, do(X)))
     end.
@@ -40,10 +40,16 @@ input() ->
             X
     end.
 
+ini() ->
+    0.
+
+do(X) ->
+    X.
+
 acc(Acc, X) ->
     Acc + X.
 
-do(X) ->
+fin(X) ->
     X.")
 
 (defun max-year ()
