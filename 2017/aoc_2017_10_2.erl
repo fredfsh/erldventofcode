@@ -2,6 +2,8 @@
 
 -export([start/0]).
 
+-export([do/1]).
+
 start() ->
     Out = run(),
     io:format("~p~n", [Out]),
@@ -18,24 +20,24 @@ run_impl(Acc) ->
             run_impl(acc(Acc, do(X)))
     end.
 
--define(EXTRAS, [17, 31, 73, 47, 23]).
-
 input() ->
     case io:get_line("") of
         eof ->
             eof;
         L ->
-            string:trim(L, trailing) ++ ?EXTRAS
+            string:trim(L, trailing)
     end.
 
 ini() ->
     [].
 
+-define(EXTRAS, [17, 31, 73, 47, 23]).
 -define(LEN, 256).
 
 do(X) ->
+    In = X ++ ?EXTRAS,
     Arr = array:from_list(lists:seq(0, ?LEN - 1)),
-    Sparse = array:to_list(sparse(0, X, Arr, 0, 0, X)),
+    Sparse = array:to_list(sparse(0, In, Arr, 0, 0, In)),
     Dense = dense(Sparse),
     hex(Dense).
 
