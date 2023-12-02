@@ -9,7 +9,7 @@
 
 ;;; Code:
 
-(defvar aoc-root "~/AdventOfCode")
+(defvar aoc-root "~/erldventofcode")
 
 (defvar aoc-template "\
 -module(template).

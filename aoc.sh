@@ -1,4 +1,4 @@
-DIR=~/AdventOfCode
+DIR=~/erldventofcode
 
 aoc_git_push() {
     OUT=`cd $DIR && git status --porcelain | head -1`
