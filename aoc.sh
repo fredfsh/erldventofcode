@@ -1,3 +1,5 @@
+#!/usr/bin/zsh
+
 DIR=~/erldventofcode
 
 OUT=`cd $DIR && git status --porcelain | head -1`
